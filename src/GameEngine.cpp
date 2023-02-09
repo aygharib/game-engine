@@ -1,6 +1,9 @@
 #include "GameEngine.h"
 
-GameEngine::GameEngine() : window("Game Engine") {}
+GameEngine::GameEngine() : window("Game Engine") {
+    cubeTexture.loadFromFile("./resources/textures/cube.png");
+    cubeSprite.setTexture(cubeTexture);
+}
 
 auto GameEngine::update() -> void {
     window.update();
@@ -10,7 +13,7 @@ auto GameEngine::lateUpdate() -> void {}
 
 auto GameEngine::draw() -> void {
     window.beginDraw();
-    // TODO: Add Draw code here
+    window.draw(cubeSprite);
     window.endDraw();
 }
 
