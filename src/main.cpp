@@ -1,7 +1,13 @@
-#include <iostream>
+#include "GameEngine.h"
 
 auto main() -> int {
-    std::cout << "Hello world\n";
+    GameEngine gameEngine;
+
+    while (gameEngine.isRunning()) {
+        gameEngine.update();
+        gameEngine.lateUpdate();
+        gameEngine.draw();
+    }
 
     return 0;
 }
