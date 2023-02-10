@@ -2,7 +2,9 @@
 
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <memory>
 
+#include "Component.h"
 #include "Scene.h"
 #include "Input.h"
 #include "WorkingDirectory.h"
@@ -21,8 +23,7 @@ public:
     auto processInput() -> void override;
     
 private:
-    sf::Texture cubeTexture;
-    sf::Sprite cubeSprite;
+    std::shared_ptr<Object> player;
     
     WorkingDirectory& workingDirectory;
     Input input;
