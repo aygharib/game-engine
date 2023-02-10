@@ -5,7 +5,9 @@
 #include <SFML/System/Clock.hpp>
 
 #include "Input.h"
+#include "SceneStateMachine.h"
 #include "Window.h"
+#include "WorkingDirectory.h"
 
 class GameEngine {
 public:
@@ -21,12 +23,10 @@ public:
 
     auto captureInput() -> void;
 private:
+    WorkingDirectory workingDirectory;
     Window window;
     sf::Clock clock;
     float deltaTime;
 
-    Input input;
-
-    sf::Texture cubeTexture;
-    sf::Sprite cubeSprite;
+    SceneStateMachine sceneStateMachine;
 };

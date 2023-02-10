@@ -5,38 +5,38 @@
 auto Input::update() -> void {
     previousFrameKeys.setMask(currentFrameKeys);
 
-    currentFrameKeys.setBit((int)Key::Left,
+    currentFrameKeys.setBit((int)KEY::LEFT,
                          (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) || 
 						 (sf::Keyboard::isKeyPressed(sf::Keyboard::A)));
     
-    currentFrameKeys.setBit((int)Key::Right,
+    currentFrameKeys.setBit((int)KEY::RIGHT,
                          (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) || 
 						 (sf::Keyboard::isKeyPressed(sf::Keyboard::D)));
     
-    currentFrameKeys.setBit((int)Key::Up,
+    currentFrameKeys.setBit((int)KEY::UP,
                          (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || 
 						 (sf::Keyboard::isKeyPressed(sf::Keyboard::W)));
   
-    currentFrameKeys.setBit((int)Key::Down,
+    currentFrameKeys.setBit((int)KEY::DOWN,
                          (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || 
 						 (sf::Keyboard::isKeyPressed(sf::Keyboard::S)));
   
-    currentFrameKeys.setBit((int)Key::Esc, 
+    currentFrameKeys.setBit((int)KEY::ESC, 
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Escape));
 }
 
-auto Input::isKeyPressed(Key keycode) -> bool {
+auto Input::isKeyPressed(KEY keycode) -> bool {
     return currentFrameKeys.getBit(static_cast<int>(keycode));
 }
 
-auto Input::isKeyDown(Key keycode) -> bool {
+auto Input::isKeyDown(KEY keycode) -> bool {
     bool lastFrame = previousFrameKeys.getBit(static_cast<int>(keycode));
     bool thisFrame = currentFrameKeys.getBit(static_cast<int>(keycode));
     
     return thisFrame && !lastFrame;
 }
 
-auto Input::isKeyUp(Key keycode) -> bool {
+auto Input::isKeyUp(KEY keycode) -> bool {
     bool lastFrame = previousFrameKeys.getBit(static_cast<int>(keycode));
     bool thisFrame = currentFrameKeys.getBit(static_cast<int>(keycode));
     

@@ -1,44 +1,41 @@
 #include "GameEngine.h"
-#include "SFML/System/Vector2.hpp"
 
-GameEngine::GameEngine() : window("Game Engine"), deltaTime(clock.restart().asSeconds()) {
-    cubeTexture.loadFromFile("./resources/textures/cube.png");
-    cubeSprite.setTexture(cubeTexture);
+#include <utility>
+
+#include "SceneGame.h"
+#include "SceneSplashScreen.h"
+#include "WorkingDirectory.h"
+
+GameEngine::GameEngine() : window("Game Engine") {
+     std::shared_ptr<SceneSplashScreen> splashScreen = 
+		  std::make_shared<SceneSplashScreen>(workingDirectory, sceneStateMachine, window);
+    
+    std::shared_ptr<SceneGame> gameScene = 
+		std::make_shared<SceneGame>(workingDirectory);
+       
+    unsigned int splashScreenID = sceneStateMachine.add(splashScreen);
+    unsigned int gameSceneID = sceneStateMachine.add(gameScene);
+    
+    splashScreen->setSwitchToScene(gameSceneID);
+    
+    sceneStateMachine.switchTo(splashScreenID);
+    
+    deltaTime = clock.restart().asSeconds();
 }
 
 auto GameEngine::update() -> void {
     window.update();
 
-    const auto& spritePosition = cubeSprite.getPosition();
-    const auto moveSpeed = 100;
-
-    sf::Vector2f move{0.F, 0.F};
-
-    if(input.isKeyPressed(Input::Key::Left)) {
-        move.x = -moveSpeed;
-    }
-    else if(input.isKeyPressed(Input::Key::Right)) {
-        move.x = moveSpeed;
-    }
-    
-    int yMove = 0;
-    if(input.isKeyPressed(Input::Key::Up)) {
-        move.y = -moveSpeed;
-    }
-    else if(input.isKeyPressed(Input::Key::Down)) {
-        move.y = moveSpeed;
-    }
-
-    sf::Vector2f frameMove = {move.x * deltaTime, move.y * deltaTime};
-
-    cubeSprite.setPosition(spritePosition.x + frameMove.x, spritePosition.y + frameMove.y);
+    sceneStateMachine.update(deltaTime);
 }
 
-auto GameEngine::lateUpdate() -> void {}
+auto GameEngine::lateUpdate() -> void {
+    sceneStateMachine.lateUpdate(deltaTime);
+}
 
 auto GameEngine::draw() -> void {
     window.beginDraw();
-    window.draw(cubeSprite);
+    sceneStateMachine.draw(window);
     window.endDraw();
 }
 
@@ -51,5 +48,5 @@ auto GameEngine::isRunning() const -> bool {
 }
 
 auto GameEngine::captureInput() -> void {
-    input.update();
+    sceneStateMachine.processInput();
 }

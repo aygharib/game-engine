@@ -31,3 +31,8 @@ auto Window::endDraw() -> void {
 auto Window::isOpen() const -> bool {
     return window.isOpen();
 }
+
+auto Window::getCenter() const -> sf::Vector2f {
+    auto size = window.getSize();
+    return sf::Vector2f{static_cast<float>(size.x) / 2.F, static_cast<float>(size.y) / 2.F};
+}

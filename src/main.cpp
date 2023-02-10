@@ -1,4 +1,7 @@
 #include "GameEngine.h"
+#include "WorkingDirectory.h"
+
+#include <memory>
 
 auto main() -> int {
     GameEngine gameEngine;

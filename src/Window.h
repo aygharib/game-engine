@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SFML/System/Vector2.hpp"
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -14,6 +15,7 @@ public:
     auto endDraw() -> void;
 
     auto isOpen() const -> bool;
+    auto getCenter() const -> sf::Vector2f;
 private:
     sf::RenderWindow window;
 };
