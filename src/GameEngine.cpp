@@ -7,14 +7,11 @@
 #include "WorkingDirectory.h"
 
 GameEngine::GameEngine() : window("Game Engine") {
-     std::shared_ptr<SceneSplashScreen> splashScreen = 
-		  std::make_shared<SceneSplashScreen>(workingDirectory, sceneStateMachine, window);
-    
-    std::shared_ptr<SceneGame> gameScene = 
-		std::make_shared<SceneGame>(workingDirectory);
+    const auto splashScreen = std::make_shared<SceneSplashScreen>(workingDirectory, sceneStateMachine, window, textureAllocator);
+    const auto gameScene = std::make_shared<SceneGame>(workingDirectory, textureAllocator);
        
-    unsigned int splashScreenID = sceneStateMachine.add(splashScreen);
-    unsigned int gameSceneID = sceneStateMachine.add(gameScene);
+    auto splashScreenID = sceneStateMachine.add(splashScreen);
+    auto gameSceneID = sceneStateMachine.add(gameScene);
     
     splashScreen->setSwitchToScene(gameSceneID);
     

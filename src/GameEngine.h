@@ -5,6 +5,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "Input.h"
+#include "ResourceAllocator.h"
 #include "SceneStateMachine.h"
 #include "Window.h"
 #include "WorkingDirectory.h"
@@ -25,8 +26,9 @@ public:
 private:
     WorkingDirectory workingDirectory;
     Window window;
+    SceneStateMachine sceneStateMachine;
+    ResourceAllocator<sf::Texture> textureAllocator;
     sf::Clock clock;
     float deltaTime;
 
-    SceneStateMachine sceneStateMachine;
 };

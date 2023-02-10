@@ -1,27 +1,37 @@
 #include "SceneSplashScreen.h"
 
-SceneSplashScreen::SceneSplashScreen(WorkingDirectory& workingDirectory, 
-									 SceneStateMachine& sceneStateMachine,
-									 Window& window) 
-    : sceneStateMachine(sceneStateMachine), workingDirectory(workingDirectory), window(window),
-    switchToState(0), currentSeconds(0.F), showForSeconds(3.F) {}
+SceneSplashScreen::SceneSplashScreen(
+    WorkingDirectory& workingDirectory, 
+    SceneStateMachine& sceneStateMachine,
+    Window& window,
+    ResourceAllocator<sf::Texture>& textureAllocator)
+      : sceneStateMachine(sceneStateMachine),
+        workingDirectory(workingDirectory),
+        window(window),
+        textureAllocator(textureAllocator),
+        switchToState(0),
+        currentSeconds(0.F),
+        showForSeconds(3.F)
+        {}
 
 void SceneSplashScreen::onCreate() {
-	// We’ll initialise our splash screen image here.
-	
-    splashTexture.loadFromFile(workingDirectory.get() + "splash.png");
-    splashSprite.setTexture(splashTexture);
-    
-    auto spriteSize = splashSprite.getLocalBounds();
-	
-	// Set the origin of the sprite to the centre of the image:
-    splashSprite.setOrigin(spriteSize.width / 2.F, 
-						   spriteSize.height / 2.F);
-    
-    auto windowCentre = window.getCenter();
+    auto textureId = textureAllocator.add(workingDirectory.get() + "splash.png");
 
-	// Positions sprite in centre of screen:
-    splashSprite.setPosition(windowCentre.x, windowCentre.y); 
+    if (textureId >= 0) {
+        auto texture = textureAllocator.get(textureId);
+        splashSprite.setTexture(*texture);
+    
+        auto spriteSize = splashSprite.getLocalBounds();
+        
+        // Set the origin of the sprite to the centre of the image:
+        splashSprite.setOrigin(spriteSize.width / 2.F, 
+                            spriteSize.height / 2.F);
+        
+        auto windowCentre = window.getCenter();
+
+        // Positions sprite in centre of screen:
+        splashSprite.setPosition(windowCentre.x, windowCentre.y); 
+    }
 }
 
 void SceneSplashScreen::onActivate() {

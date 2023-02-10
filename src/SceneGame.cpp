@@ -5,12 +5,14 @@
 #include "C_Sprite.h"
 #include <memory>
 
-SceneGame::SceneGame(WorkingDirectory& workingDirectory) : workingDirectory(workingDirectory) {}
+SceneGame::SceneGame(WorkingDirectory& workingDirectory, ResourceAllocator<sf::Texture>& textureAllocator)
+    : workingDirectory(workingDirectory), textureAllocator(textureAllocator) {}
 
 auto SceneGame::onCreate() -> void {
     player = std::make_shared<Object>();
 
     auto sprite = player->addComponent<C_Sprite>();
+    sprite->setTextureAllocator(&textureAllocator);
     sprite->load(workingDirectory.get() + "cube.png");
 
     auto movement = player->addComponent<C_KeyboardMovement>();

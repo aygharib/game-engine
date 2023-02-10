@@ -2,12 +2,15 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "ResourceAllocator.h"
+#include "SFML/Graphics/Texture.hpp"
 #include "SceneStateMachine.h"
 #include "WorkingDirectory.h"
 
 class SceneSplashScreen : public Scene {
 public:
-    SceneSplashScreen(WorkingDirectory& workingDir, SceneStateMachine& sceneStateMachine, Window& window);
+    SceneSplashScreen(WorkingDirectory& workingDir, SceneStateMachine& sceneStateMachine,
+        Window& window, ResourceAllocator<sf::Texture>& textureAllocator);
 
     // Necessary to implement from base scene class
     auto onCreate() -> void override;
@@ -28,6 +31,7 @@ private:
     SceneStateMachine& sceneStateMachine;
     Window& window;
     WorkingDirectory& workingDirectory;
+    ResourceAllocator<sf::Texture>& textureAllocator;
     
 	// We want to show this scene for a set amount of time
     float showForSeconds;

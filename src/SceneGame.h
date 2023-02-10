@@ -6,13 +6,14 @@
 
 #include "Object.h"
 #include "Component.h"
+#include "ResourceAllocator.h"
 #include "Scene.h"
 #include "Input.h"
 #include "WorkingDirectory.h"
 
 class SceneGame : public Scene {
 public:
-    SceneGame(WorkingDirectory& workingDirectory);
+    SceneGame(WorkingDirectory& workingDirectory, ResourceAllocator<sf::Texture>& textureAllocator);
     
     // Necessary to implement from base scene class
     auto onCreate() -> void override;
@@ -28,5 +29,6 @@ private:
     std::shared_ptr<Object> player;
     
     WorkingDirectory& workingDirectory;
+    ResourceAllocator<sf::Texture>& textureAllocator;
     Input input;
 };

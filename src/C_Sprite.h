@@ -1,5 +1,6 @@
 #include "Component.h"
 
+#include "ResourceAllocator.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 
@@ -16,7 +17,13 @@ public:
     // Override draw member function to draw sprite
     auto draw(Window& window) -> void override;
 
+    // We add a new overloaded load method that accepts a texture id
+    auto load(int id) -> void;
+
+    auto setTextureAllocator(ResourceAllocator<sf::Texture>* allocator) -> void;
+
 private:
     sf::Texture texture;
+    ResourceAllocator<sf::Texture>* allocator;
     sf::Sprite sprite;
 };
