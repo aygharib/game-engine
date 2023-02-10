@@ -1,4 +1,10 @@
 #include "Object.h"
+#include "C_Transform.h"
+#include <memory>
+
+Object::Object() {
+    transform = addComponent<C_Transform>();
+}
 
 auto Object::awake() -> void {
     for (int i = components.size() - 1; i >= 0; i--) {

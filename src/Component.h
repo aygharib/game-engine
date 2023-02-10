@@ -15,6 +15,10 @@ public:
     virtual auto lateUpdate(float deltaTime) -> void {}
     virtual auto draw(Window& window) -> void {}
 
-protected:
+    inline auto getOwner() -> Object* {
+        return owner;
+    }
+
+private:
     Object* owner;
 };

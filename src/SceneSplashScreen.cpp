@@ -1,13 +1,10 @@
 #include "SceneSplashScreen.h"
 
-#include <iostream>
-
 SceneSplashScreen::SceneSplashScreen(WorkingDirectory& workingDirectory, 
 									 SceneStateMachine& sceneStateMachine,
 									 Window& window) 
-: sceneStateMachine(sceneStateMachine), workingDirectory(workingDirectory), window(window), switchToState(0),
-currentSeconds(0.F), showForSeconds(3.F)
-{}
+    : sceneStateMachine(sceneStateMachine), workingDirectory(workingDirectory), window(window),
+    switchToState(0), currentSeconds(0.F), showForSeconds(3.F) {}
 
 void SceneSplashScreen::onCreate() {
 	// We’ll initialise our splash screen image here.
@@ -15,7 +12,7 @@ void SceneSplashScreen::onCreate() {
     splashTexture.loadFromFile(workingDirectory.get() + "splash.png");
     splashSprite.setTexture(splashTexture);
     
-    sf::FloatRect spriteSize = splashSprite.getLocalBounds();
+    auto spriteSize = splashSprite.getLocalBounds();
 	
 	// Set the origin of the sprite to the centre of the image:
     splashSprite.setOrigin(spriteSize.width / 2.F, 
@@ -42,8 +39,7 @@ void SceneSplashScreen::setSwitchToScene(unsigned int id) {
 void SceneSplashScreen::update(float deltaTime) {
     currentSeconds += deltaTime;
     
-    if(currentSeconds >= showForSeconds) 
-    {
+    if (currentSeconds >= showForSeconds) {
 		// Switches states.
         sceneStateMachine.switchTo(switchToState); 
     }

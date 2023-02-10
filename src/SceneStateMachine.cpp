@@ -3,25 +3,25 @@
 SceneStateMachine::SceneStateMachine() : scenes(0), currentScene(nullptr), insertedSceneID(0) {}
 
 void SceneStateMachine::processInput() {
-    if(currentScene) {
+    if (currentScene) {
         currentScene->processInput();
     }
 }
 
 void SceneStateMachine::update(float deltaTime) {
-    if(currentScene) {
+    if (currentScene) {
         currentScene->update(deltaTime);
     }
 }
 
 void SceneStateMachine::lateUpdate(float deltaTime) {
-    if(currentScene) {
+    if (currentScene) {
         currentScene->lateUpdate(deltaTime);
     }
 }
 
 void SceneStateMachine::draw(Window& window) {
-    if(currentScene) {
+    if (currentScene) {
         currentScene->draw(window);
     }
 }

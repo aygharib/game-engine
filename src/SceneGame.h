@@ -4,6 +4,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <memory>
 
+#include "Object.h"
 #include "Component.h"
 #include "Scene.h"
 #include "Input.h"
@@ -19,6 +20,7 @@ public:
     
     // Override empty behaviour from base scene class
     auto update(float deltaTime) -> void override;
+    auto lateUpdate(float deltaTime) -> void override;
     auto draw(Window& window) -> void override;
     auto processInput() -> void override;
     

@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Component.h"
+#include "C_Transform.h"
 #include "Window.h"
 
 #include <memory>
 
 class Object {
 public:
+    Object();
+
     // Awake is called when the object is created
     // Use to ensure required components are present
     auto awake() -> void;
@@ -55,6 +58,8 @@ public:
         
         return nullptr;
     }
+
+    std::shared_ptr<C_Transform> transform;
 
 private:
     std::vector<std::shared_ptr<Component>> components;
