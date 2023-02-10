@@ -4,6 +4,7 @@ auto main() -> int {
     GameEngine gameEngine;
 
     while (gameEngine.isRunning()) {
+        gameEngine.captureInput();
         gameEngine.update();
         gameEngine.lateUpdate();
         gameEngine.draw();

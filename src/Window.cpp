@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include <SFML/Window/Event.hpp>
+
 Window::Window(const std::string& name)
     : window(sf::VideoMode(1280, 720), name, sf::Style::Close) {
     window.setVerticalSyncEnabled(true);
