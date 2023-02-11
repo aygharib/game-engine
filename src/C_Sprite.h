@@ -1,6 +1,9 @@
+#pragma once
+
 #include "Component.h"
 
 #include "ResourceAllocator.h"
+#include "SFML/Graphics/Rect.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 
@@ -22,8 +25,12 @@ public:
 
     auto setTextureAllocator(ResourceAllocator<sf::Texture>* allocator) -> void;
 
+    auto setTextureRect(int x, int y, int width, int height) -> void;
+    auto setTextureRect(const sf::IntRect& rect) -> void;
+
 private:
     sf::Texture texture;
     ResourceAllocator<sf::Texture>* allocator;
     sf::Sprite sprite;
+    int currentTextureId{-1}; // keep track of current set texture
 };

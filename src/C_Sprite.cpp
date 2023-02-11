@@ -8,7 +8,8 @@ auto C_Sprite::setTextureAllocator(ResourceAllocator<sf::Texture>* allocator) ->
 }
 
 auto C_Sprite::load(int id) -> void {
-    if (id >= 0) {
+    if (id >= 0 && id != currentTextureId) {
+        currentTextureId = id;
         auto texture = allocator->get(id);
         sprite.setTexture(*texture);
     }
@@ -18,11 +19,20 @@ auto C_Sprite::load(const std::string& filePath) -> void {
     if (allocator != nullptr) {
         auto textureId = allocator->add(filePath);
 
-        if (textureId >= 0) {
+        if (textureId >= 0 && textureId != currentTextureId) {
+            currentTextureId = textureId;
             auto texture = allocator->get(textureId);
             sprite.setTexture(*texture);
         }
     }
+}
+
+auto C_Sprite::setTextureRect(int x, int y, int width, int height) -> void {
+    sprite.setTextureRect(sf::IntRect{x, y, width, height});
+}
+
+auto C_Sprite::setTextureRect(const sf::IntRect& rect) -> void {
+    sprite.setTextureRect(rect);
 }
 
 auto C_Sprite::lateUpdate(float /*deltaTime*/) -> void {
