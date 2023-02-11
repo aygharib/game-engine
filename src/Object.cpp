@@ -2,7 +2,7 @@
 #include "C_Transform.h"
 #include <memory>
 
-Object::Object() {
+Object::Object() : queuedForRemoval(false) {
     transform = addComponent<C_Transform>();
 }
 
@@ -34,4 +34,12 @@ auto Object::draw(Window& window) -> void {
     for (int i = components.size() - 1; i >= 0; i--) {
         components[i]->draw(window);
     }
+}
+
+auto Object::isQueuedForRemoval() const -> bool {
+    return queuedForRemoval;
+}
+
+auto Object::queueForRemoval() -> void {
+    queuedForRemoval = true;
 }

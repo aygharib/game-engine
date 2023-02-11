@@ -6,6 +6,7 @@
 
 #include "Object.h"
 #include "Component.h"
+#include "ObjectCollection.h"
 #include "ResourceAllocator.h"
 #include "Scene.h"
 #include "Input.h"
@@ -26,9 +27,8 @@ public:
     auto processInput() -> void override;
     
 private:
-    std::shared_ptr<Object> player;
-    
     WorkingDirectory& workingDirectory;
     ResourceAllocator<sf::Texture>& textureAllocator;
     Input input;
+    ObjectCollection objects;
 };

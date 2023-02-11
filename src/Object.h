@@ -10,6 +10,8 @@ class Object {
 public:
     Object();
 
+    std::shared_ptr<C_Transform> transform;
+
     // Awake is called when the object is created
     // Use to ensure required components are present
     auto awake() -> void;
@@ -21,6 +23,9 @@ public:
     auto update(float deltaTime) -> void;
     auto lateUpdate(float deltaTime) -> void;
     auto draw(Window& window) -> void;
+    
+    [[nodiscard]] auto isQueuedForRemoval() const -> bool;
+    auto queueForRemoval() -> void;
 
     template<typename T>
     auto addComponent() -> std::shared_ptr<T> {
@@ -59,8 +64,7 @@ public:
         return nullptr;
     }
 
-    std::shared_ptr<C_Transform> transform;
-
 private:
     std::vector<std::shared_ptr<Component>> components;
+    bool queuedForRemoval;
 };
