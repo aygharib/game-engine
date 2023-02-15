@@ -1,5 +1,7 @@
 #include "Animation.h"
 
+Animation::Animation(FacingDirection facingDirection) : facingDirection(facingDirection) {}
+
 auto Animation::addFrame(int textureId, int x, int y, int width, int height, float frameTime) -> void {
     frames.push_back(FrameData{textureId, x, y, width, height, frameTime});
 }
@@ -33,4 +35,19 @@ auto Animation::reset() -> void {
 
 auto Animation::incrementFrame() -> void {
     currentFrameIndex = (currentFrameIndex + 1) % static_cast<int>(frames.size());
+}
+
+auto Animation::setDirection(FacingDirection facingDirection) -> void {
+    if (this->facingDirection != facingDirection) {
+        this->facingDirection = facingDirection;
+
+        for (auto& frame : frames) {
+            frame.x += frame.width;
+            frame.width *= -1;
+        }
+    }
+}
+
+auto Animation::getDirection() const -> FacingDirection {
+    return facingDirection;
 }

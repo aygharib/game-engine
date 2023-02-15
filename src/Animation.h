@@ -2,6 +2,12 @@
 
 #include <vector>
 
+enum class FacingDirection {
+    None,
+    Left,
+    Right
+};
+
 struct FrameData {
     int id; // Texture id (retrieved from our texture allocator).
     int x; // x position of sprite in the texture.
@@ -13,7 +19,7 @@ struct FrameData {
 
 class Animation {
 public:
-    Animation() = default;
+    Animation(FacingDirection FacingDirection);
 
     auto addFrame(int textureId, int x, int y, int width, int height, float frameTime) -> void;
     
@@ -22,9 +28,12 @@ public:
     auto updateFrame(float deltaTime) -> bool;
     
     auto reset() -> void;
+
+    auto setDirection(FacingDirection facingDirection) -> void;
+    [[nodiscard]] auto getDirection() const -> FacingDirection;
     
 private:
-    auto incrementFrame() -> void;
+    FacingDirection facingDirection;
     
 	// Stores all frames for our animation.
     std::vector<FrameData> frames{0};
@@ -34,4 +43,6 @@ private:
 	
 	// We use this to decide when to transition to the next frame.
     float currentFrameTime{0.F};
+    
+    auto incrementFrame() -> void;
 };

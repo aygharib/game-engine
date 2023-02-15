@@ -26,7 +26,7 @@ auto SceneGame::onCreate() -> void {
     const auto frameWidth = 50;
     const auto frameHeight = 50;
 
-    auto idleAnimation = std::make_shared<Animation>();
+    auto idleAnimation = std::make_shared<Animation>(FacingDirection::Right);
 
     // How long we want to show each frame
     const auto idleAnimationFrameSeconds = 0.2F;

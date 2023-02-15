@@ -1,4 +1,5 @@
 #include "C_Animation.h"
+#include "Animation.h"
 #include <utility>
 
 C_Animation::C_Animation(Object* owner) : Component(owner) {}
@@ -47,4 +48,10 @@ auto C_Animation::getAnimationState() const -> const AnimationState& {
 	// Returns out current animation state. We can use this 
 	// to compare the objects current state to a desired state.
     return currentAnimation.first; 
+}
+
+auto C_Animation::setAnimationDirection(FacingDirection facingDirection) -> void {
+    if (currentAnimation.first != AnimationState::None) {
+        currentAnimation.second->setDirection(facingDirection);
+    }
 }

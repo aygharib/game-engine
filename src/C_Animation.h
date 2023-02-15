@@ -31,6 +31,8 @@ public:
 	// Returns current animation state.
     [[nodiscard]] auto getAnimationState() const -> const AnimationState&;
 
+    auto setAnimationDirection(FacingDirection facingDirection) -> void;
+
 private:
     std::shared_ptr<C_Sprite> sprite;
     std::map<AnimationState, std::shared_ptr<Animation>> animations;

@@ -1,7 +1,9 @@
 #pragma once
 
+#include "C_Animation.h"
 #include "Component.h"
 #include "Input.h"
+#include <memory>
 
 class C_KeyboardMovement : public Component {
 public:
@@ -12,8 +14,11 @@ public:
 
     // Override update to handle keyboard input
     auto update(float deltaTime) -> void override;
+    auto awake() -> void override;
 
 private:
-    float moveSpeed;
-    Input* input;
+    float moveSpeed{200.F};
+    Input* input{nullptr};
+
+    std::shared_ptr<C_Animation> animation;
 };
